@@ -6,22 +6,22 @@ const routes = [
       {
         path: "",
         name: "loginPage",
-        component: () => import("pages/Login.vue"),
+        component: () => import("src/pages/login.vue"),
       },
       {
         path: "register-page",
         name: "registerPage",
-        component: () => import("pages/RegisterPage.vue"),
+        component: () => import("src/pages/register-page.vue"),
       },
       {
         path: "home",
         name: "home",
-        component: () => import("pages/IndexPage.vue"),
+        component: () => import("src/pages/index-page.vue"),
       },
       {
         path: "form-task/:id?",
         name: "formTask",
-        component: () => import("pages/FormTask.vue"),
+        component: () => import("src/pages/form-task.vue"),
       },
       {
         path: "all-tasks",

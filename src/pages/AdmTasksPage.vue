@@ -1,45 +1,25 @@
 <template>
   <tool-bar />
   <q-page>
-    <div class="row justify-center items-center content-center">
-      <div class="col-11 q-gutter-sm q-col-gutter-sm">
+    <div class="row justify-center items-center content-center col-12">
+      <div class="col-8 q-gutter-sm q-col-gutter-sm">
         <q-space />
-        <div
-          class="row justify-center text-bold text-primary"
-          style="font-size: 1.5em"
-        >
+        <div class="row justify-center text-bold text-primary" style="font-size: 1.5em">
           All platform tasks
         </div>
         <q-space />
-           <q-pull-to-refresh @refresh="refresh">
-        <q-table
-          title="Tasks"
-          :rows="tasks"
-          :columns="columns"
-          row-key="index"
-          class="my-sticky-virtscroll-table"
-          virtual-scroll
-          v-model:pagination="pagination"
-          :rows-per-page-options="[0]"
-          :virtual-scroll-sticky-size-start="48"
-          hide-bottom
-        >
-          <template v-slot:top>
-            <span class="text-h5">Tasks</span>
-            <q-space />
-          </template>
-          <template v-slot:body-cell-actions="props">
-            <q-td :props="props" class="q-gutter-sm">
-              <q-btn
-                icon="delete"
-                color="negative"
-                dense
-                size="sm"
-                @click="deleteTask(props.row.id)"
-              />
-            </q-td>
-          </template>
-        </q-table>
+        <q-pull-to-refresh @refresh="refresh">
+          <q-table title="Tasks" :rows="tasks" :columns="columns" row-key="index" class="my-sticky-virtscroll-table">
+            <template v-slot:top>
+              <span class="text-h5">Tasks</span>
+              <q-space />
+            </template>
+            <template v-slot:body-cell-actions="props">
+              <q-td :props="props" class="q-gutter-sm">
+                <q-btn icon="delete" color="negative" dense size="sm" @click="deleteTask(props.row.id)" />
+              </q-td>
+            </template>
+          </q-table>
         </q-pull-to-refresh>
       </div>
     </div>
@@ -47,11 +27,11 @@
 </template>
 
 <script>
-import { defineComponent, ref, onMounted } from "vue";
-import ToolBar from "components/ToolBar.vue";
-import admTasksService from "src/services/admTasks";
-import { useQuasar } from "quasar";
-import { useRouter } from "vue-router";
+import { defineComponent, ref, onMounted } from "vue"
+import ToolBar from "components/ToolBar.vue"
+import admTasksService from "src/services/admTasks"
+import { useQuasar } from "quasar"
+import { useRouter } from "vue-router"
 
 export default defineComponent({
   name: "AdmTasksPage",
@@ -61,26 +41,26 @@ export default defineComponent({
   },
 
   setup() {
-    const tasks = ref([]);
-    const { listAllTasks, remove } = admTasksService();
+    const tasks = ref([])
+    const { listAllTasks, remove } = admTasksService()
 
     onMounted(() => {
       if (
         localStorage.getItem("logout") === null ||
         localStorage.getItem("logout") === "true"
       ) {
-        router.push({ name: "notFound" });
+        router.push({ name: "notFound" })
       } else {
         if (
           localStorage.getItem("admin") === "false" ||
           localStorage.getItem("admin") === null
         ) {
-          router.push({ name: "notFound" });
+          router.push({ name: "notFound" })
         } else {
-          getAllTasks();
+          getAllTasks()
         }
       }
-    });
+    })
 
     const columns = [
       {
@@ -138,35 +118,35 @@ export default defineComponent({
         label: "Actions",
         align: "right",
       },
-    ];
+    ]
 
-    const $q = useQuasar();
-    const router = useRouter();
+    const $q = useQuasar()
+    const router = useRouter()
 
-    let rows = [];
-    let taskList = [];
+    let rows = []
+    let taskList = []
 
     const getAllTasks = async () => {
       try {
-        const data = await listAllTasks();
-        tasks.value = data;
-        taskList = tasks.value;
-        rows = [];
+        const data = await listAllTasks()
+        tasks.value = data
+        taskList = tasks.value
+        rows = []
         for (let i = 0; i < taskList.length; i++) {
-          rows = rows.concat(taskList[i]);
+          rows = rows.concat(taskList[i])
         }
         rows.forEach((row, index) => {
-          row.index = ++index;
-        });
+          row.index = ++index
+        })
       } catch (error) {
         $q.notify({
           message: "Not logged!",
           icon: "error",
           color: "negative",
-        });
-        console.log(error);
+        })
+        console.log(error)
       }
-    };
+    }
 
     const deleteTask = async (id) => {
       try {
@@ -176,14 +156,14 @@ export default defineComponent({
           cancel: true,
           persistent: true,
         }).onOk(async () => {
-          await remove(id);
-          $q.notify({ message: "Deleted", icon: "check", color: "positive" });
-          getAllTasks();
-        });
+          await remove(id)
+          $q.notify({ message: "Deleted", icon: "check", color: "positive" })
+          getAllTasks()
+        })
       } catch (error) {
-        $q.notify({ message: "Error!", icon: "times", color: "negative" });
+        $q.notify({ message: "Error!", icon: "times", color: "negative" })
       }
-    };
+    }
 
     return {
       tasks,
@@ -194,13 +174,13 @@ export default defineComponent({
       }),
       refresh(done) {
         setTimeout(() => {
-          getAllTasks();
-          done();
-        }, 1000);
+          getAllTasks()
+          done()
+        }, 1000)
       },
-    };
+    }
   },
-});
+})
 </script>
 
 <style lang="sass">
@@ -220,4 +200,3 @@ export default defineComponent({
   thead tr:first-child th
     top: 0
 </style>
-
