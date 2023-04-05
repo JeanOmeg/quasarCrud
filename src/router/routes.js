@@ -6,7 +6,7 @@ const routes = [
       {
         path: "",
         name: "loginPage",
-        component: () => import("src/pages/login.vue"),
+        component: () => import("src/pages/login-page.vue"),
       },
       {
         path: "register-page",
@@ -26,12 +26,12 @@ const routes = [
       {
         path: "all-tasks",
         name: "allTasks",
-        component: () => import("src/pages/AdmTasksPage.vue"),
+        component: () => import("src/pages/adm-tasks-page.vue"),
       },
       {
         path: "all-users/:id?",
         name: "allUsers",
-        component: () => import("src/pages/AllUsers.vue"),
+        component: () => import("src/pages/all-users.vue"),
       },
     ],
   },
@@ -41,6 +41,6 @@ const routes = [
     name: "notFound",
     component: () => import("pages/ErrorNotFound.vue"),
   },
-];
+]
 
-export default routes;
+export default routes

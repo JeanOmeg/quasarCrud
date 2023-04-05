@@ -1,8 +1,8 @@
-import { defineComponent, ref, onMounted } from "vue";
-import ToolBar from "components/ToolBar.vue";
-import tasksService from "src/services/tasks";
-import { useQuasar } from "quasar";
-import { useRouter } from "vue-router";
+import { defineComponent, ref, onMounted } from "vue"
+import ToolBar from "components/ToolBar.vue"
+import tasksService from "src/services/tasks"
+import { useQuasar } from "quasar"
+import { useRouter } from "vue-router"
 
 export default defineComponent({
   name: "IndexPage",
@@ -12,19 +12,19 @@ export default defineComponent({
   },
 
   setup() {
-    const tasks = ref([]);
-    const { listByIdUser, remove } = tasksService();
+    const tasks = ref([])
+    const { listByIdUser, remove } = tasksService()
 
     onMounted(() => {
       if (
         localStorage.getItem("logout") === null ||
         localStorage.getItem("logout") === "true"
       ) {
-        router.push({ name: "notFound" });
+        router.push({ name: "notFound" })
       } else {
-        getTaskByIdUser();
+        getTaskByIdUser()
       }
-    });
+    })
 
     const columns = [
       {
@@ -68,30 +68,30 @@ export default defineComponent({
         label: "Actions",
         align: "right",
       },
-    ];
+    ]
 
-    const $q = useQuasar();
-    const router = useRouter();
+    const $q = useQuasar()
+    const router = useRouter()
 
-    let rows = [];
-    let taskList = [];
+    let rows = []
+    let taskList = []
 
     const getTaskByIdUser = async (id) => {
       try {
-        const data = await listByIdUser(id);
-        tasks.value = data;
-        taskList = tasks.value;
-        rows = [];
+        const data = await listByIdUser(id)
+        tasks.value = data
+        taskList = tasks.value
+        rows = []
         for (let i = 0; i < taskList.length; i++) {
-          rows = rows.concat(taskList[i]);
+          rows = rows.concat(taskList[i])
         }
         rows.forEach((row, index) => {
-          row.index = ++index;
-        });
+          row.index = ++index
+        })
       } catch (error) {
-        console.log(error);
+        console.log(error)
       }
-    };
+    }
 
     const deleteTask = async (id) => {
       try {
@@ -101,18 +101,18 @@ export default defineComponent({
           cancel: true,
           persistent: true,
         }).onOk(async () => {
-          await remove(id);
-          getTaskByIdUser();
-          $q.notify({ message: "Deleted", icon: "check", color: "positive" });
-        });
+          await remove(id)
+          getTaskByIdUser()
+          $q.notify({ message: "Deleted", icon: "check", color: "positive" })
+        })
       } catch (error) {
-        $q.notify({ message: "Error!", icon: "times", color: "negative" });
+        $q.notify({ message: "Error!", icon: "times", color: "negative" })
       }
-    };
+    }
 
     const editTask = (id) => {
-      router.push({ name: "formTask", params: { id } });
-    };
+      router.push({ name: "formTask", params: { id } })
+    }
 
     return {
       tasks,
@@ -124,10 +124,10 @@ export default defineComponent({
       }),
       refresh(done) {
         setTimeout(() => {
-          getTaskByIdUser();
-          done();
-        }, 1000);
+          getTaskByIdUser()
+          done()
+        }, 1000)
       },
-    };
+    }
   },
-});
+})
