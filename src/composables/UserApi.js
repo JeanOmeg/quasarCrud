@@ -1,7 +1,6 @@
-import { api } from "boot/axios"
+import { api } from 'boot/axios'
 
 export default function userApi(url) {
-
   const listAllUsers = async (id) => {
     try {
       const { data } = await api.get(url, id)

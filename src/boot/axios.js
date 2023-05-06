@@ -1,19 +1,19 @@
-import { boot } from "quasar/wrappers"
-import axios from "axios"
+import { boot } from 'quasar/wrappers'
+import axios from 'axios'
 
 const api = axios.create({
   baseURL: process.env.API_URL,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 })
 
 async function refreshToken(error) {
   return new Promise((resolve, reject) => {
     try {
-      const refresh_token = localStorage.getItem("refreshToken")
+      const refresh_token = localStorage.getItem('refreshToken')
       const parameters = {
-        method: "POST",
+        method: 'POST',
         headers: {
           Authorization: `Bearer ${refresh_token}`,
         },
@@ -22,33 +22,33 @@ async function refreshToken(error) {
       const body = {}
 
       axios
-        .post(process.env.API_URL + "refresh", body, parameters)
+        .post(process.env.API_URL + 'refresh', body, parameters)
         .then(async (res) => {
-          localStorage.setItem("userToken", res.data.data.token)
-          localStorage.setItem("refreshToken", res.data.data.refreshToken)
+          localStorage.setItem('userToken', res.data.data.token)
+          localStorage.setItem('refreshToken', res.data.data.refreshToken)
           return resolve(res.data.data.token)
         })
         .catch((err) => {
-          localStorage.removeItem("userToken")
-          localStorage.removeItem("refreshToken")
-          localStorage.removeItem("admin")
-          localStorage.removeItem("logout")
-          window.location.href = "/"
+          localStorage.removeItem('userToken')
+          localStorage.removeItem('refreshToken')
+          localStorage.removeItem('admin')
+          localStorage.removeItem('logout')
+          window.location.href = '/'
           return reject(error)
         })
     } catch (err) {
-      localStorage.removeItem("userToken")
-      localStorage.removeItem("refreshToken")
-      localStorage.removeItem("admin")
-      localStorage.removeItem("logout")
-      window.location.href = "/"
+      localStorage.removeItem('userToken')
+      localStorage.removeItem('refreshToken')
+      localStorage.removeItem('admin')
+      localStorage.removeItem('logout')
+      window.location.href = '/'
       return reject(err)
     }
   })
 }
 
 api.interceptors.request.use((request) => {
-  const token = localStorage.getItem("userToken")
+  const token = localStorage.getItem('userToken')
   if (token) {
     request.headers.Authorization = `Bearer ${token}`
   }
@@ -63,15 +63,15 @@ api.interceptors.response.use(
     const config = error.config
     if (error.response && error.response.status === 401) {
       const token = await refreshToken(error)
-      config.headers["Authorization"] = `Bearer ${token}`
+      config.headers['Authorization'] = `Bearer ${token}`
       return api(config)
     }
-    localStorage.removeItem("userToken")
-    localStorage.removeItem("refreshToken")
-    localStorage.removeItem("admin")
-    localStorage.removeItem("logout")
+    localStorage.removeItem('userToken')
+    localStorage.removeItem('refreshToken')
+    localStorage.removeItem('admin')
+    localStorage.removeItem('logout')
     return Promise.reject(error)
-  }
+  },
 )
 
 export default boot(({ app }) => {

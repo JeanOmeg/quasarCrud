@@ -1,11 +1,11 @@
-import { defineComponent, ref, onMounted } from "vue"
-import ToolBar from "components/ToolBar.vue"
-import usersService from "src/services/users"
-import { useQuasar } from "quasar"
-import { useRouter } from "vue-router"
+import { defineComponent, ref, onMounted } from 'vue'
+import ToolBar from 'components/ToolBar.vue'
+import usersService from 'src/services/users'
+import { useQuasar } from 'quasar'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
-  name: "AllUsers",
+  name: 'AllUsers',
 
   components: {
     ToolBar,
@@ -16,17 +16,11 @@ export default defineComponent({
     const { listAllUsers, remove } = usersService()
 
     onMounted(() => {
-      if (
-        localStorage.getItem("logout") === null ||
-        localStorage.getItem("logout") === "true"
-      ) {
-        router.push({ name: "notFound" })
+      if (localStorage.getItem('logout') === null || localStorage.getItem('logout') === 'true') {
+        router.push({ name: 'notFound' })
       } else {
-        if (
-          localStorage.getItem("admin") === "false" ||
-          localStorage.getItem("admin") === null
-        ) {
-          router.push({ name: "notFound" })
+        if (localStorage.getItem('admin') === 'false' || localStorage.getItem('admin') === null) {
+          router.push({ name: 'notFound' })
         } else {
           getAllUsers()
         }
@@ -35,66 +29,66 @@ export default defineComponent({
 
     const columns = [
       {
-        name: "index",
-        label: "#",
-        field: "index",
-        align: "left",
+        name: 'index',
+        label: '#',
+        field: 'index',
+        align: 'left',
         sortable: true,
       },
       {
-        name: "online",
-        field: "online",
-        label: "Online",
-        align: "left",
+        name: 'online',
+        field: 'online',
+        label: 'Online',
+        align: 'left',
         sortable: true,
       },
       {
-        name: "real_name",
-        field: "real_name",
-        label: "Name",
-        align: "left",
+        name: 'real_name',
+        field: 'real_name',
+        label: 'Name',
+        align: 'left',
         sortable: true,
       },
       {
-        name: "username",
-        field: "username",
-        label: "Username",
-        align: "left",
+        name: 'username',
+        field: 'username',
+        label: 'Username',
+        align: 'left',
         sortable: true,
       },
       {
-        name: "email",
-        field: "email",
-        label: "Email",
-        align: "left",
+        name: 'email',
+        field: 'email',
+        label: 'Email',
+        align: 'left',
         sortable: true,
       },
       {
-        name: "phone",
-        field: "phone",
-        label: "Phone",
-        align: "left",
+        name: 'phone',
+        field: 'phone',
+        label: 'Phone',
+        align: 'left',
         sortable: true,
       },
       {
-        name: "id",
-        field: "id",
-        label: "User ID",
-        align: "left",
+        name: 'id',
+        field: 'id',
+        label: 'User ID',
+        align: 'left',
         sortable: true,
       },
       {
-        name: "admin",
-        field: "admin",
-        label: "Admin",
-        align: "left",
+        name: 'admin',
+        field: 'admin',
+        label: 'Admin',
+        align: 'left',
         sortable: true,
       },
       {
-        name: "actions",
-        field: "actions",
-        label: "Actions",
-        align: "right",
+        name: 'actions',
+        field: 'actions',
+        label: 'Actions',
+        align: 'right',
       },
     ]
 
@@ -118,9 +112,9 @@ export default defineComponent({
         })
       } catch (error) {
         $q.notify({
-          message: "Not logged!",
-          icon: "error",
-          color: "negative",
+          message: 'Not logged!',
+          icon: 'error',
+          color: 'negative',
         })
         console.log(error)
       }
@@ -129,28 +123,28 @@ export default defineComponent({
     const deleteTask = async (id) => {
       try {
         $q.dialog({
-          title: "Delete",
-          message: "Do you want to delete this user?",
+          title: 'Delete',
+          message: 'Do you want to delete this user?',
           cancel: true,
           persistent: true,
         }).onOk(async () => {
           const deleted = await remove(id)
           if (!deleted) {
             $q.notify({
-              message: "Error! Impossible to delete your own account",
-              icon: "error",
-              color: "negative",
+              message: 'Error! Impossible to delete your own account',
+              icon: 'error',
+              color: 'negative',
             })
           } else {
-            $q.notify({ message: "Deleted", icon: "check", color: "positive" })
+            $q.notify({ message: 'Deleted', icon: 'check', color: 'positive' })
             getAllUsers()
           }
         })
       } catch (error) {
         $q.notify({
-          message: "Error! Please try again later...",
-          icon: "error",
-          color: "negative",
+          message: 'Error! Please try again later...',
+          icon: 'error',
+          color: 'negative',
         })
       }
     }

@@ -14,7 +14,9 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
+    "-": "^0.0.1",
     "@quasar/extras": "^1.0.0",
+    "D": "^1.0.0",
     "axios": "^0.21.1",
     "quasar": "^2.6.0",
     "vue": "^3.0.0",
@@ -28,7 +30,7 @@
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-vue": "^9.0.0",
     "postcss": "^8.4.14",
-    "prettier": "^2.5.1"
+    "prettier": "^2.8.8"
   },
   "engines": {
     "node": "^18 || ^16 || ^14.19",

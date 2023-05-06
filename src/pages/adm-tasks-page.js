@@ -1,11 +1,11 @@
-import { defineComponent, ref, onMounted } from "vue"
-import ToolBar from "components/ToolBar.vue"
-import admTasksService from "src/services/admTasks"
-import { useQuasar } from "quasar"
-import { useRouter } from "vue-router"
+import { defineComponent, ref, onMounted } from 'vue'
+import ToolBar from 'components/ToolBar.vue'
+import admTasksService from 'src/services/admTasks'
+import { useQuasar } from 'quasar'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
-  name: "AdmTasksPage",
+  name: 'AdmTasksPage',
 
   components: {
     ToolBar,
@@ -16,17 +16,11 @@ export default defineComponent({
     const { listAllTasks, remove } = admTasksService()
 
     onMounted(() => {
-      if (
-        localStorage.getItem("logout") === null ||
-        localStorage.getItem("logout") === "true"
-      ) {
-        router.push({ name: "notFound" })
+      if (localStorage.getItem('logout') === null || localStorage.getItem('logout') === 'true') {
+        router.push({ name: 'notFound' })
       } else {
-        if (
-          localStorage.getItem("admin") === "false" ||
-          localStorage.getItem("admin") === null
-        ) {
-          router.push({ name: "notFound" })
+        if (localStorage.getItem('admin') === 'false' || localStorage.getItem('admin') === null) {
+          router.push({ name: 'notFound' })
         } else {
           getAllTasks()
         }
@@ -35,59 +29,59 @@ export default defineComponent({
 
     const columns = [
       {
-        name: "index",
-        label: "#",
-        field: "index",
-        align: "left",
+        name: 'index',
+        label: '#',
+        field: 'index',
+        align: 'left',
         sortable: true,
       },
       {
-        name: "id",
-        field: "id",
-        label: "Task ID",
-        align: "left",
+        name: 'id',
+        field: 'id',
+        label: 'Task ID',
+        align: 'left',
         sortable: true,
       },
       {
-        name: "title",
-        field: "title",
-        label: "Task",
-        align: "left",
+        name: 'title',
+        field: 'title',
+        label: 'Task',
+        align: 'left',
         sortable: true,
       },
       {
-        name: "username",
-        field: "username",
-        label: "Username",
-        align: "left",
+        name: 'username',
+        field: 'username',
+        label: 'Username',
+        align: 'left',
         sortable: true,
       },
       {
-        name: "status",
-        field: "status",
-        label: "Status",
-        align: "left",
+        name: 'status',
+        field: 'status',
+        label: 'Status',
+        align: 'left',
         sortable: true,
       },
       {
-        name: "created",
-        field: "created",
-        label: "Create",
-        align: "left",
+        name: 'created',
+        field: 'created',
+        label: 'Create',
+        align: 'left',
         sortable: true,
       },
       {
-        name: "updated",
-        field: "updated",
-        label: "Update",
-        align: "left",
+        name: 'updated',
+        field: 'updated',
+        label: 'Update',
+        align: 'left',
         sortable: true,
       },
       {
-        name: "actions",
-        field: "actions",
-        label: "Actions",
-        align: "right",
+        name: 'actions',
+        field: 'actions',
+        label: 'Actions',
+        align: 'right',
       },
     ]
 
@@ -111,9 +105,9 @@ export default defineComponent({
         })
       } catch (error) {
         $q.notify({
-          message: "Not logged!",
-          icon: "error",
-          color: "negative",
+          message: 'Not logged!',
+          icon: 'error',
+          color: 'negative',
         })
         console.log(error)
       }
@@ -122,17 +116,17 @@ export default defineComponent({
     const deleteTask = async (id) => {
       try {
         $q.dialog({
-          title: "Delete",
-          message: "Do you want to delete this task?",
+          title: 'Delete',
+          message: 'Do you want to delete this task?',
           cancel: true,
           persistent: true,
         }).onOk(async () => {
           await remove(id)
-          $q.notify({ message: "Deleted", icon: "check", color: "positive" })
+          $q.notify({ message: 'Deleted', icon: 'check', color: 'positive' })
           getAllTasks()
         })
       } catch (error) {
-        $q.notify({ message: "Error!", icon: "times", color: "negative" })
+        $q.notify({ message: 'Error!', icon: 'times', color: 'negative' })
       }
     }
 

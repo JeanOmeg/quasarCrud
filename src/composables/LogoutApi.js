@@ -1,4 +1,4 @@
-import { api } from "boot/axios"
+import { api } from 'boot/axios'
 
 export default function logoutApi(url) {
   const logoutId = async (id) => {

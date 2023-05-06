@@ -1,7 +1,6 @@
-import { api } from "boot/axios"
+import { api } from 'boot/axios'
 
 export default function admTaskApi(url) {
-
   const listAllTasks = async () => {
     try {
       const { data } = await api.get(url)

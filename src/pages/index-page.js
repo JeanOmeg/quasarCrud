@@ -1,11 +1,11 @@
-import { defineComponent, ref, onMounted } from "vue"
-import ToolBar from "components/ToolBar.vue"
-import tasksService from "src/services/tasks"
-import { useQuasar } from "quasar"
-import { useRouter } from "vue-router"
+import { defineComponent, ref, onMounted } from 'vue'
+import ToolBar from 'components/ToolBar.vue'
+import tasksService from 'src/services/tasks'
+import { useQuasar } from 'quasar'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
-  name: "IndexPage",
+  name: 'IndexPage',
 
   components: {
     ToolBar,
@@ -16,11 +16,8 @@ export default defineComponent({
     const { listByIdUser, remove } = tasksService()
 
     onMounted(() => {
-      if (
-        localStorage.getItem("logout") === null ||
-        localStorage.getItem("logout") === "true"
-      ) {
-        router.push({ name: "notFound" })
+      if (localStorage.getItem('logout') === null || localStorage.getItem('logout') === 'true') {
+        router.push({ name: 'notFound' })
       } else {
         getTaskByIdUser()
       }
@@ -28,45 +25,45 @@ export default defineComponent({
 
     const columns = [
       {
-        name: "index",
-        label: "#",
-        field: "index",
-        align: "left",
+        name: 'index',
+        label: '#',
+        field: 'index',
+        align: 'left',
         sortable: true,
       },
       {
-        name: "title",
-        field: "title",
-        label: "Task",
-        align: "left",
+        name: 'title',
+        field: 'title',
+        label: 'Task',
+        align: 'left',
         sortable: true,
       },
       {
-        name: "status",
-        field: "status",
-        label: "Status",
-        align: "left",
+        name: 'status',
+        field: 'status',
+        label: 'Status',
+        align: 'left',
         sortable: true,
       },
       {
-        name: "created",
-        field: "created",
-        label: "Create",
-        align: "left",
+        name: 'created',
+        field: 'created',
+        label: 'Create',
+        align: 'left',
         sortable: true,
       },
       {
-        name: "updated",
-        field: "updated",
-        label: "Update",
-        align: "left",
+        name: 'updated',
+        field: 'updated',
+        label: 'Update',
+        align: 'left',
         sortable: true,
       },
       {
-        name: "actions",
-        field: "actions",
-        label: "Actions",
-        align: "right",
+        name: 'actions',
+        field: 'actions',
+        label: 'Actions',
+        align: 'right',
       },
     ]
 
@@ -96,22 +93,22 @@ export default defineComponent({
     const deleteTask = async (id) => {
       try {
         $q.dialog({
-          title: "Delete",
-          message: "Do you want to delete this task?",
+          title: 'Delete',
+          message: 'Do you want to delete this task?',
           cancel: true,
           persistent: true,
         }).onOk(async () => {
           await remove(id)
           getTaskByIdUser()
-          $q.notify({ message: "Deleted", icon: "check", color: "positive" })
+          $q.notify({ message: 'Deleted', icon: 'check', color: 'positive' })
         })
       } catch (error) {
-        $q.notify({ message: "Error!", icon: "times", color: "negative" })
+        $q.notify({ message: 'Error!', icon: 'times', color: 'negative' })
       }
     }
 
     const editTask = (id) => {
-      router.push({ name: "formTask", params: { id } })
+      router.push({ name: 'formTask', params: { id } })
     }
 
     return {

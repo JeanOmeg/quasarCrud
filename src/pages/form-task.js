@@ -1,10 +1,10 @@
-import { defineComponent, ref, onMounted } from "vue"
-import taskService from "src/services/tasks"
-import ToolBar from "components/ToolBar.vue"
-import { useQuasar } from "quasar"
-import { useRouter, useRoute } from "vue-router"
+import { defineComponent, ref, onMounted } from 'vue'
+import taskService from 'src/services/tasks'
+import ToolBar from 'components/ToolBar.vue'
+import { useQuasar } from 'quasar'
+import { useRouter, useRoute } from 'vue-router'
 export default defineComponent({
-  name: "FormTask",
+  name: 'FormTask',
 
   components: {
     ToolBar,
@@ -17,11 +17,8 @@ export default defineComponent({
     const route = useRoute()
 
     onMounted(() => {
-      if (
-        localStorage.getItem("logout") === null ||
-        localStorage.getItem("logout") === "true"
-      ) {
-        router.push({ name: "notFound" })
+      if (localStorage.getItem('logout') === null || localStorage.getItem('logout') === 'true') {
+        router.push({ name: 'notFound' })
       }
       if (route.params.id) {
         getTask(route.params.id)
@@ -29,8 +26,8 @@ export default defineComponent({
     })
 
     const form = ref({
-      title: "",
-      status: "",
+      title: '',
+      status: '',
     })
 
     const getTask = async (id) => {
@@ -50,16 +47,16 @@ export default defineComponent({
           await post(form.value)
         }
         if (form.value.id) {
-          $q.notify({ message: "Edited", icon: "check", color: "positive" })
+          $q.notify({ message: 'Edited', icon: 'check', color: 'positive' })
         } else {
-          $q.notify({ message: "Created", icon: "check", color: "positive" })
+          $q.notify({ message: 'Created', icon: 'check', color: 'positive' })
         }
-        router.push({ name: "home" })
+        router.push({ name: 'home' })
       } catch (error) {
         $q.notify({
-          message: "Error! Not logged or error connection server",
-          icon: "error",
-          color: "negative",
+          message: 'Error! Not logged or error connection server',
+          icon: 'error',
+          color: 'negative',
         })
         console.error(error)
       }
@@ -68,7 +65,7 @@ export default defineComponent({
     return {
       form,
       onSubmit,
-      options: ["Not started", "Started", "Paused", "Done"],
+      options: ['Not started', 'Started', 'Paused', 'Done'],
     }
   },
 })
