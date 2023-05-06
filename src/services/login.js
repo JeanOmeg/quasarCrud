@@ -1,7 +1,7 @@
-import loginApi from "src/composables/LoginApi"
+import loginApi from 'src/composables/LoginApi'
 
 export default function loginService() {
-  const { login } = loginApi("login")
+  const { login } = loginApi('login')
 
   return {
     login,
