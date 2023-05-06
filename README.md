@@ -1,6 +1,6 @@
 # Quasar App (quasarcrud)
 
-quasar crud -- teste
+quasar crud
 
 ## Install the dependencies
 
