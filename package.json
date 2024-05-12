@@ -6,7 +6,7 @@
   "author": "jeanomeg3@gmail.com",
   "private": true,
   "scripts": {
-    "dev": "quasar dev",
+    "dev": "quasar dev -m pwa",
     "build": "quasar build",
     "build:pwa": "quasar build -m pwa",
     "lint": "eslint --ext .js,.vue ./",
@@ -30,7 +30,14 @@
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-vue": "^9.0.0",
     "postcss": "^8.4.14",
-    "prettier": "^2.8.8"
+    "prettier": "^2.8.8",
+    "workbox-build": "^6.5.0",
+    "workbox-cacheable-response": "^6.5.0",
+    "workbox-core": "^6.5.0",
+    "workbox-expiration": "^6.5.0",
+    "workbox-precaching": "^6.5.0",
+    "workbox-routing": "^6.5.0",
+    "workbox-strategies": "^6.5.0"
   },
   "engines": {
     "node": "^18 || ^16 || ^14.19",
